@@ -2,5 +2,5 @@
 
 <p align="center">
   <img src="output/bonsai-growth.gif" width="450" alt="my git-bonsai" />
-  <sub>My commit history as a bonsai, regrown daily with <a href="https://github.com/egorthinks/git-bonsai">git-bonsai</a> 🌳</sub>
+  <sub>My commit history as a bonsai, regrown daily 🌳</sub>
 </p>
