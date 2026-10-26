@@ -1,0 +1,13 @@
+name: bonsai
+on:
+  schedule:
+    - cron: '0 3 * * *'   # re-grow daily
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  grow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: egorthinks/git-bonsai@665258cab3f304cfb33a96fc7bf108cec1f452f3  # v1.0.0
