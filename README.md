@@ -1,11 +1,13 @@
-### Aaron Yalong
+# Aaron Yalong
 
 ---
+
+AI engineer focused on agentic systems.
 
 I build LLM applications that show their work: retrieval that cites its sources, agents that call real tools, and evals that measure whether any of it works.
 At Intuitive Machines, I build an agentic AI desktop application running on Claude in an air-gapped aerospace environment.
 
-#### What I work on
+## What I work on
 
 ---
 
@@ -14,6 +16,8 @@ At Intuitive Machines, I build an agentic AI desktop application running on Clau
 - Evaluation: benchmarks, held-out tests, and honest negative results
 
 [LinkedIn](https://www.linkedin.com/in/aaron-yalong) · [Email](mailto:aaronjyalong@gmail.com)
+
+---
 
 <div align="center">
   <img src="output/bonsai-growth.gif" width="450" alt="my git-bonsai" />
