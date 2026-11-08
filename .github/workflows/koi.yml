@@ -1,0 +1,25 @@
+name: Koi
+on:
+  schedule:
+    - cron: "20 0 * * *"   # just after midnight UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: koi
+jobs:
+  koi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: yalongwastaken/git-koi@7305e9b1fadee6f43d3b4fa543a25d4cde79856e  # v1.0.2
+        with:
+          body: white        # or black, asagi, tea, gold, platinum
+          output-dir: koi
+      - name: Commit the koi if it changed
+        run: |
+          git add koi/koi.gif
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "koi: draw the day's koi"
+          git pull --rebase && git push
