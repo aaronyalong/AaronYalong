@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pillow
-      - run: python scripts/compose_pond.py --bonsai output/bonsai.gif --koi koi/koi.gif --out pond/pond.gif
+      - run: python scripts/compose_pond.py --bonsai output/bonsai.gif --koi koi/koi.gif --out pond/pond.gif --squash 0.45 --pad-y 40
       - name: Commit the pond if it changed
         run: |
           git add pond/

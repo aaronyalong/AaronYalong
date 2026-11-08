@@ -27,6 +27,7 @@ def main():
     ap.add_argument("--tree-scale", type=int, default=2)
     ap.add_argument("--squash", type=float, default=0.30, help="ellipse height / width")
     ap.add_argument("--koi-scale", type=float, default=0.75)
+    ap.add_argument("--pad-y", type=int, default=8, help="empty space above and below")
     a = ap.parse_args()
 
     tree = frames(a.bonsai)
@@ -85,7 +86,7 @@ def main():
 
     ub = union(f.getbbox() for f in out)
     pad = 8
-    ub = (max(0, ub[0] - pad), max(0, ub[1] - pad), min(W, ub[2] + pad), min(H, ub[3] + pad))
+    ub = (max(0, ub[0] - pad), max(0, ub[1] - a.pad_y), min(W, ub[2] + pad), min(H, ub[3] + a.pad_y))
     out = [f.crop(ub) for f in out]
 
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
