@@ -2,6 +2,7 @@
 
 AI engineer focused on agentic systems. <a href="https://www.linkedin.com/in/aaron-yalong">LinkedIn</a> · <a href="mailto:aaronjyalong@gmail.com">Email</a>
 
+<br><br><br><br>
 
 <div align="center">
   <img src="pond/pond.gif" width="452" alt="A koi swimming around my bonsai" />
