@@ -1,0 +1,31 @@
+name: Pond
+on:
+  workflow_run:
+    workflows: [bonsai, Koi]
+    types: [completed]
+  schedule:
+    - cron: "40 3 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: pond
+jobs:
+  pond:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pillow
+      - run: python scripts/compose_pond.py --bonsai output/bonsai.gif --koi koi/koi.gif --out pond/pond.gif
+      - name: Commit the pond if it changed
+        run: |
+          git add pond/
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "pond: redraw the koi around the bonsai"
+          git pull --rebase && git push

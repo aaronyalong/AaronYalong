@@ -4,8 +4,8 @@ AI engineer focused on agentic systems. <a href="https://www.linkedin.com/in/aar
 
 
 <div align="center">
-  <img src="output/bonsai-growth.gif" width="450" alt="my git-bonsai" />
+  <img src="pond/pond.gif" width="452" alt="A koi swimming around my bonsai" />
 </div>
 <p align="center">
-  <sub>My commit history as a bonsai, regrown daily 🌳</sub>
+  <sub>A bonsai and a koi grown from my commit history, redrawn daily 🌳🐟</sub>
 </p>
