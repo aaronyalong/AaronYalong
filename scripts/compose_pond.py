@@ -1,7 +1,8 @@
 """Compose a git-koi swimming around a git-bonsai into one looping GIF."""
 import argparse
 import os
-from PIL import Image
+import shutil
+from PIL import Image, ImageOps
 
 
 def frames(path):
@@ -11,6 +12,16 @@ def frames(path):
         im.seek(i)
         out.append((im.convert("RGBA"), im.info.get("duration", 100)))
     return out
+
+
+def swims_laps(koi):
+    """git-koi swims laps on cruise/dart days, but hovers mid-frame on rest and
+    surface-feeding days (e.g. the first active day of each week)."""
+    w, h = koi[0][0].size
+    centres = [((b[0] + b[2]) / 2, (b[1] + b[3]) / 2)
+               for b in (f.getbbox() for f, _ in koi)]
+    xs, ys = [c[0] for c in centres], [c[1] for c in centres]
+    return max(max(xs) - min(xs), max(ys) - min(ys)) > w * 0.25
 
 
 def union(boxes):
@@ -27,11 +38,23 @@ def main():
     ap.add_argument("--tree-scale", type=int, default=2)
     ap.add_argument("--squash", type=float, default=0.30, help="ellipse height / width")
     ap.add_argument("--koi-scale", type=float, default=0.75)
+    ap.add_argument("--last-lap", default="pond/last-lap.gif",
+                    help="copy of the latest lapping koi, used on days the koi would hover")
     ap.add_argument("--pad-y", type=int, default=8, help="empty space above and below")
     a = ap.parse_args()
 
     tree = frames(a.bonsai)
     koi = frames(a.koi)
+
+    # Always swim. On lap days, remember this koi. On hover days, reuse the last
+    # lapping koi mirrored, so it swims the circle the other way round instead.
+    if swims_laps(koi):
+        os.makedirs(os.path.dirname(a.last_lap) or ".", exist_ok=True)
+        if os.path.abspath(a.koi) != os.path.abspath(a.last_lap):
+            shutil.copyfile(a.koi, a.last_lap)
+    elif os.path.exists(a.last_lap):
+        koi = [(ImageOps.mirror(f), d) for f, d in frames(a.last_lap)]
+        print("koi is hovering today; swimming the last lap counter-clockwise instead")
 
     # crop the swaying tree to the union of its frames, upscale with nearest to keep pixels crisp
     tb = union(f.getbbox() for f, _ in tree)
